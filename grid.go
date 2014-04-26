@@ -1,6 +1,5 @@
 package main
 
-import "fmt"
 import "math/rand"
 import "strings"
 import "errors"
