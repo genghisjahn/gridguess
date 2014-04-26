@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 import "math/rand"
+import "strings"
+import "errors"
 
 type Grid struct {
 	Points  []Point
@@ -28,9 +30,15 @@ func (g *Grid) IsPointTarget(x int, y int) bool {
 	return result
 }
 
-func (g *Grid) ProcessGuess(x int, y int) GuessResult {
+func (g *Grid) ProcessGuess(raw_guess string) (GuessResult,error) {
 	result := GuessResult{}
-	return result
+	err_msg := "Guess must be in the format #,#.  Example:  5.5"
+	parts:=strings.Split(raw_guess,",")
+	if len(parts)!=2{
+		err := errors.New(err_msg)
+		return result,err
+	}
+	return result,nil
 }
 
 func (g *Grid) Build() {
