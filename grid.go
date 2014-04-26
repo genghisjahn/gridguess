@@ -3,7 +3,12 @@ package main
 // import "math/rand"
 
 
-func Add(num1 int, num2 int) int{
-	return num1+num2
+type Point struct{
+	x int
+	y int
+	target bool
 }
+
+
+
 

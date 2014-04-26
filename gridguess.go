@@ -12,7 +12,4 @@ func main(){
 	flag.Parse()
 	fmt.Printf("This grid's width is %d.\n", *width)
 	fmt.Printf("This grid's height is %d.\n", *height)
-	sum:=0
-	sum = Add(5,6)
-	fmt.Printf("Add nums %d.\n",sum)
 }
