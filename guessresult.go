@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-const ( // iota is reset to 0
+const (
 	cFound = iota
 	cNorth = iota
 	cSouth = iota
@@ -17,6 +17,28 @@ type GuessResult struct {
 }
 
 func (gr GuessResult) String() string {
-	return fmt.Sprintf("Still working on this!!")
+	v_part:=""
+	h_part:=""
+	if gr.VerticalPosition==cNorth{
+		v_part="North"
+	}
+	if gr.VerticalPosition==cSouth{
+		v_part="South"
+	}
+	if gr.VerticalPosition==cFound{
+		v_part="Found"
+	}
+
+	if gr.HorizontalPosition==cEast{
+		h_part = "East"
+	}
+	if gr.HorizontalPosition==cWest{
+		h_part="West"
+	}
+	if gr.HorizontalPosition==cFound{
+		h_part="Found"
+	}
+
+	return fmt.Sprintf("Target is %v and %v from your guess.\n",v_part,h_part)
 }
 

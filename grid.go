@@ -35,10 +35,12 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
 	err_msg := "Guess must be in the format #,#.  Example:  5.5"
 	guess_x:=0
-	// guess_y:=0
+	guess_y:=0
 	err_x := errors.New("")
-	// err_y := errors.New("")
+	err_y := errors.New("")
 	parts := strings.Split(raw_guess, ",")
+
+	_ = guess_y
 	if len(parts) != 2 {
 		err := errors.New(err_msg)
 		return result, err
@@ -47,12 +49,12 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		err := errors.New(err_msg)
 		return result, err
 	}
-	/*
+	
 	if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
 		err := errors.New(err_msg)
 		return result, err
 	}
-	*/
+	
 	if guess_x>g.TargetX{
 		result.HorizontalPosition = cWest
 	}
@@ -62,9 +64,17 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	if guess_x==g.TargetX{
 		result.HorizontalPosition = cFound
 	}
-	fmt.Printf("Target: %d.\n",g.TargetX)
-	fmt.Printf("HR: %d.\n",result.HorizontalPosition)
 
+	if guess_y>g.TargetY{
+		result.VerticalPosition = cNorth
+	}
+	if guess_y<g.TargetY{
+		result.VerticalPosition = cSouth
+	}
+	if guess_y == g.TargetY{
+		result.VerticalPosition = cFound
+	}
+	
 	return result, nil
 }
 

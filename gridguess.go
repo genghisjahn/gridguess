@@ -26,6 +26,6 @@ func main() {
 	if err_result != nil {
 		fmt.Printf("Error: %v.\n", err_result)
 	}
-	_ = gresult
+	fmt.Printf("%v.\n",gresult)
 
 }
