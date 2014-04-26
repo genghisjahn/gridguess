@@ -10,6 +10,7 @@ type Grid struct {
 	Points  []Point
 	TargetX int
 	TargetY int
+	GuessCount int
 }
 
 func randInt(min int, max int) int {
@@ -39,7 +40,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	err_x := errors.New("")
 	err_y := errors.New("")
 	parts := strings.Split(raw_guess, ",")
-
+	g.GuessCount+=1
 	_ = guess_y
 	if len(parts) != 2 {
 		err := errors.New(err_msg)
@@ -74,7 +75,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	if guess_y == g.TargetY {
 		result.VerticalPosition = cFound
 	}
-
+	result.GuessCount=g.GuessCount
 	return result, nil
 }
 

@@ -13,6 +13,7 @@ const (
 type GuessResult struct {
 	VerticalPosition   int
 	HorizontalPosition int
+	GuessCount int
 	Message            string
 }
 
