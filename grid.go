@@ -3,16 +3,7 @@ package main
 import "fmt"
 import "math/rand"
 
-type Point struct {
-	x       int
-	y       int
-	target  bool
-	explore bool
-}
 
-func (p Point) String() string {
-	return fmt.Sprintf("{X:%d, Y:%d - Target: %t, Explored %t}", p.x, p.y, p.target, p.explore)
-}
 
 type Grid struct {
 	Points []Point
@@ -20,6 +11,21 @@ type Grid struct {
 
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
+}
+
+func (g *Grid) IsPointTarget(x int, y int) bool {
+	result:=false
+
+	for _, point := range g.Points {
+		if point.x==x && point.y==y{
+			point.explored = true
+			if point.target{
+				result = true
+				break	
+			}
+		}
+	}
+	return result
 }
 
 func (g *Grid) Build() {
@@ -45,5 +51,4 @@ func (g *Grid) Build() {
 		set_x += 1
 		set_y = 1
 	}
-	fmt.Printf("Target (X,Y) (%d,%d)", target_x, target_y)
 }

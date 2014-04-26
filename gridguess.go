@@ -16,6 +16,6 @@ func main() {
 	grid := Grid{}
 	grid.Build()
 
-	fmt.Printf("Num of Points %v.\n", len(grid.Points))
-
+	fmt.Printf("Is Target: %t.\n", grid.IsPointTarget(5,5))
+	
 }
