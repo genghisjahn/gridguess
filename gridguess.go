@@ -19,10 +19,10 @@ func main() {
 	PlayLoop(grid)
 
 }
-func PlayLoop(grid Grid){
+func PlayLoop(grid Grid) {
 
-	found:=false
-	for !found{
+	found := false
+	for !found {
 		fmt.Printf("Enter Guess: ")
 		var guess_str string
 		_, err := fmt.Scanf("%v", &guess_str)
@@ -33,11 +33,9 @@ func PlayLoop(grid Grid){
 		if err_result != nil {
 			fmt.Printf("Error: %v.\n", err_result)
 		}
-		fmt.Printf("%v.\n",gresult)
-		if gresult.VerticalPosition == 0 && gresult.HorizontalPosition ==0{
+		fmt.Printf("%v.\n", gresult)
+		if gresult.VerticalPosition == 0 && gresult.HorizontalPosition == 0 {
 			found = true
 		}
 	}
-	
-	
 }

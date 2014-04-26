@@ -34,8 +34,8 @@ func (g *Grid) IsPointTarget(x int, y int) bool {
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
 	err_msg := "Guess must be in the format #,#.  Example:  5.5"
-	guess_x:=0
-	guess_y:=0
+	guess_x := 0
+	guess_y := 0
 	err_x := errors.New("")
 	err_y := errors.New("")
 	parts := strings.Split(raw_guess, ",")
@@ -49,32 +49,32 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		err := errors.New(err_msg)
 		return result, err
 	}
-	
+
 	if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
 		err := errors.New(err_msg)
 		return result, err
 	}
-	
-	if guess_x>g.TargetX{
+
+	if guess_x > g.TargetX {
 		result.HorizontalPosition = cWest
 	}
-	if guess_x<g.TargetX{
+	if guess_x < g.TargetX {
 		result.HorizontalPosition = cEast
 	}
-	if guess_x==g.TargetX{
+	if guess_x == g.TargetX {
 		result.HorizontalPosition = cFound
 	}
 
-	if guess_y>g.TargetY{
+	if guess_y > g.TargetY {
 		result.VerticalPosition = cNorth
 	}
-	if guess_y<g.TargetY{
+	if guess_y < g.TargetY {
 		result.VerticalPosition = cSouth
 	}
-	if guess_y == g.TargetY{
+	if guess_y == g.TargetY {
 		result.VerticalPosition = cFound
 	}
-	
+
 	return result, nil
 }
 
