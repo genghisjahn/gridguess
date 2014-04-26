@@ -4,7 +4,7 @@ import "fmt"
 import "math/rand"
 
 type Grid struct {
-	Points []Point
+	Points  []Point
 	TargetX int
 	TargetY int
 }
@@ -28,18 +28,17 @@ func (g *Grid) IsPointTarget(x int, y int) bool {
 	return result
 }
 
-func (g *Grid) ProcessGuess(x int,y int) GuessResult {
+func (g *Grid) ProcessGuess(x int, y int) GuessResult {
 	result := GuessResult{}
 	return result
 }
-
 
 func (g *Grid) Build() {
 	target_x := randInt(1, *width)
 	target_y := randInt(1, *height)
 
-	g.TargetX=target_x
-	g.TargetY=target_y
+	g.TargetX = target_x
+	g.TargetY = target_y
 
 	set_x := 1
 	set_y := 1

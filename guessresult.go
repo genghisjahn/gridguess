@@ -11,7 +11,5 @@ const ( // iota is reset to 0
 type GuessResult struct {
 	VerticalPosition   int
 	HorizontalPosition int
-	Message string
+	Message            string
 }
-
-
