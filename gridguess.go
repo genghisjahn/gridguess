@@ -30,7 +30,7 @@ func PlayLoop(grid Grid) {
 		}
 		gresult, err_result := grid.ProcessGuess(guess_str)
 		if err_result != nil {
-			fmt.Printf("Error: %v.\n", err_result)
+			fmt.Printf("%v.\n", err_result)
 		}
 		fmt.Printf("%v\n", gresult)
 		if gresult.VerticalPosition == 0 && gresult.HorizontalPosition == 0 {

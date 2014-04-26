@@ -4,6 +4,7 @@ import "math/rand"
 import "strings"
 import "errors"
 import "strconv"
+import "fmt"
 
 type Grid struct {
 	Points     []Point
@@ -52,6 +53,22 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 
 	if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
 		err := errors.New(err_msg)
+		return result, err
+	}
+
+	if guess_x<1 || guess_y<1{
+		err:=errors.New("Coordinates must be greater than 0.")
+		return result, err
+	}
+	err_outofbound:=""
+	if guess_x>*width{
+		err_outofbound=fmt.Sprintf("X coordinate can't be greater than %d.\n",*width)
+	}
+	if guess_y>*height{
+		err_outofbound+=fmt.Sprintf("Y coordinate can't be greater than %d.",*height)
+	}
+	if err_outofbound!=""{
+		err:=errors.New(err_outofbound)
 		return result, err
 	}
 
