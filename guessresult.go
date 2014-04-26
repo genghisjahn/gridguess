@@ -4,11 +4,11 @@ import "fmt"
 
 const (
 	cInvalid = iota
-	cNorth = iota
-	cSouth = iota
-	cEast  = iota
-	cWest  = iota
-	cFound = iota
+	cNorth   = iota
+	cSouth   = iota
+	cEast    = iota
+	cWest    = iota
+	cFound   = iota
 )
 
 type GuessResult struct {
@@ -39,8 +39,8 @@ func (gr GuessResult) String() string {
 	if gr.HorizontalPosition == cFound {
 		h_part = "Found"
 	}
-	if gr.HorizontalPosition==cFound && gr.VerticalPosition==cFound{
-		return fmt.Sprintf("Guess #%v: You got it!",gr.GuessCount)
+	if gr.HorizontalPosition == cFound && gr.VerticalPosition == cFound {
+		return fmt.Sprintf("Guess #%v: You got it!", gr.GuessCount)
 	}
-	return fmt.Sprintf("Guess #%v: Target is %v and %v from your guess.",gr.GuessCount, v_part, h_part)
+	return fmt.Sprintf("Guess #%v: Target is %v and %v from your guess.", gr.GuessCount, v_part, h_part)
 }

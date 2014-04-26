@@ -56,19 +56,19 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		return result, err
 	}
 
-	if guess_x<1 || guess_y<1{
-		err:=errors.New("Coordinates must be greater than 0.")
+	if guess_x < 1 || guess_y < 1 {
+		err := errors.New("Coordinates must be greater than 0.")
 		return result, err
 	}
-	err_outofbound:=""
-	if guess_x>*width{
-		err_outofbound=fmt.Sprintf("X coordinate can't be greater than %d.\n",*width)
+	err_outofbound := ""
+	if guess_x > *width {
+		err_outofbound = fmt.Sprintf("X coordinate can't be greater than %d.\n", *width)
 	}
-	if guess_y>*height{
-		err_outofbound+=fmt.Sprintf("Y coordinate can't be greater than %d.",*height)
+	if guess_y > *height {
+		err_outofbound += fmt.Sprintf("Y coordinate can't be greater than %d.", *height)
 	}
-	if err_outofbound!=""{
-		err:=errors.New(err_outofbound)
+	if err_outofbound != "" {
+		err := errors.New(err_outofbound)
 		return result, err
 	}
 
