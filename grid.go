@@ -2,9 +2,14 @@ package main
 
 import "fmt"
 import "math/rand"
+import "strings"
+import "errors"
+import "strconv"
 
 type Grid struct {
-	Points []Point
+	Points  []Point
+	TargetX int
+	TargetY int
 }
 
 func randInt(min int, max int) int {
@@ -26,9 +31,59 @@ func (g *Grid) IsPointTarget(x int, y int) bool {
 	return result
 }
 
+func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
+	result := GuessResult{}
+	err_msg := "Guess must be in the format #,#.  Example:  5.5"
+	guess_x := 0
+	guess_y := 0
+	err_x := errors.New("")
+	err_y := errors.New("")
+	parts := strings.Split(raw_guess, ",")
+
+	_ = guess_y
+	if len(parts) != 2 {
+		err := errors.New(err_msg)
+		return result, err
+	}
+	if guess_x, err_x = strconv.Atoi(parts[0]); err_x != nil {
+		err := errors.New(err_msg)
+		return result, err
+	}
+
+	if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
+		err := errors.New(err_msg)
+		return result, err
+	}
+
+	if guess_x > g.TargetX {
+		result.HorizontalPosition = cWest
+	}
+	if guess_x < g.TargetX {
+		result.HorizontalPosition = cEast
+	}
+	if guess_x == g.TargetX {
+		result.HorizontalPosition = cFound
+	}
+
+	if guess_y > g.TargetY {
+		result.VerticalPosition = cNorth
+	}
+	if guess_y < g.TargetY {
+		result.VerticalPosition = cSouth
+	}
+	if guess_y == g.TargetY {
+		result.VerticalPosition = cFound
+	}
+
+	return result, nil
+}
+
 func (g *Grid) Build() {
 	target_x := randInt(1, *width)
 	target_y := randInt(1, *height)
+
+	g.TargetX = target_x
+	g.TargetY = target_y
 
 	set_x := 1
 	set_y := 1
@@ -52,5 +107,4 @@ func (g *Grid) Build() {
 
 	gresult := GuessResult{}
 	gresult.VerticalPosition = cNorth
-
 }

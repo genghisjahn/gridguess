@@ -1,19 +1,43 @@
 package main
 
-const ( // iota is reset to 0
+import "fmt"
+
+const (
 	cFound = iota
 	cNorth = iota
 	cSouth = iota
 	cEast  = iota
-	cWeat  = iota
+	cWest  = iota
 )
 
 type GuessResult struct {
 	VerticalPosition   int
 	HorizontalPosition int
+	Message            string
 }
 
-func (gr *GuessResult) ProcessGuess() GuessResult {
-	result := GuessResult{}
-	return result
+func (gr GuessResult) String() string {
+	v_part := ""
+	h_part := ""
+	if gr.VerticalPosition == cNorth {
+		v_part = "North"
+	}
+	if gr.VerticalPosition == cSouth {
+		v_part = "South"
+	}
+	if gr.VerticalPosition == cFound {
+		v_part = "Found"
+	}
+
+	if gr.HorizontalPosition == cEast {
+		h_part = "East"
+	}
+	if gr.HorizontalPosition == cWest {
+		h_part = "West"
+	}
+	if gr.HorizontalPosition == cFound {
+		h_part = "Found"
+	}
+
+	return fmt.Sprintf("Target is %v and %v from your guess.\n", v_part, h_part)
 }
