@@ -14,9 +14,8 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	grid := Grid{}
-	grid.Build();
+	grid.Build()
 
-	
 	fmt.Printf("Num of Points %v.\n", len(grid.Points))
-	
+
 }

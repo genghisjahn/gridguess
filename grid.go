@@ -3,7 +3,6 @@ package main
 import "fmt"
 import "math/rand"
 
-
 type Point struct {
 	x       int
 	y       int
@@ -23,7 +22,7 @@ func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-func (g *Grid) Build(){
+func (g *Grid) Build() {
 	target_x := randInt(1, *width)
 	target_y := randInt(1, *height)
 
