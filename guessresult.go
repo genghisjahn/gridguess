@@ -39,5 +39,5 @@ func (gr GuessResult) String() string {
 		h_part = "Found"
 	}
 
-	return fmt.Sprintf("Guess #%v: Target is %v and %v from your guess.\n",gr.GuessCount, v_part, h_part)
+	return fmt.Sprintf("Guess #%v: Target is %v and %v from your guess.",gr.GuessCount, v_part, h_part)
 }
