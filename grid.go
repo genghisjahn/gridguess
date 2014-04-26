@@ -4,6 +4,7 @@ import "fmt"
 import "math/rand"
 import "strings"
 import "errors"
+import "strconv"
 
 type Grid struct {
 	Points  []Point
@@ -33,11 +34,25 @@ func (g *Grid) IsPointTarget(x int, y int) bool {
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
 	err_msg := "Guess must be in the format #,#.  Example:  5.5"
+	guess_x:=0
+	guess_y:=0
+	err_x := errors.New("")
+	err_y := errors.New("")
 	parts := strings.Split(raw_guess, ",")
 	if len(parts) != 2 {
 		err := errors.New(err_msg)
 		return result, err
 	}
+	if guess_x, err_x = strconv.Atoi(parts[0]); err_x != nil {
+		err := errors.New(err_msg)
+		return result, err
+	}
+	if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
+		err := errors.New(err_msg)
+		return result, err
+	}
+	guess_x+=1
+	guess_y+=1
 	return result, nil
 }
 
