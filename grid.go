@@ -1,9 +1,9 @@
 package main
 
-import "math"
+// import "math/rand"
 
 
-func Add(num1 int, num2 int){
+func Add(num1 int, num2 int) int{
 	return num1+num2
 }
 
