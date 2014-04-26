@@ -7,7 +7,7 @@ const ( // iota is reset to 0
 	cNorth = iota
 	cSouth = iota
 	cEast  = iota
-	cWeat  = iota
+	cWest  = iota
 )
 
 type GuessResult struct {
