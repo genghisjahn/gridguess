@@ -20,6 +20,6 @@ type Grid struct {
 	Points []Point
 }
 
-func randInt(min int , max int) int {
-    	return min + rand.Intn(max-min)
-	}
+func randInt(min int, max int) int {
+	return min + rand.Intn(max-min)
+}

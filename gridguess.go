@@ -8,17 +8,15 @@ import "time"
 var width = flag.Int("width", 10, "Horizontal width of the grid. Default is 10.")
 var height = flag.Int("height", 10, "Vertical height of the grid. Default is 10.")
 
-
-
 func main() {
 	flag.Parse()
 
-	rand.Seed( time.Now().UTC().UnixNano())
+	rand.Seed(time.Now().UTC().UnixNano())
 
 	grid := Grid{}
 
-	target_x := randInt(1,*width)
-	target_y := randInt(1,*height)
+	target_x := randInt(1, *width)
+	target_y := randInt(1, *height)
 
 	set_x := 1
 	set_y := 1
@@ -30,7 +28,7 @@ func main() {
 			set_y += 1
 
 			if tempPoint.x == target_x && tempPoint.y == target_y {
-				tempPoint.target=true
+				tempPoint.target = true
 			}
 
 			grid.Points = append(grid.Points, tempPoint)
@@ -40,5 +38,5 @@ func main() {
 		set_y = 1
 	}
 	fmt.Printf("Num of Points %v.\n", len(grid.Points))
-	fmt.Printf("Target (X,Y) (%d,%d)",target_x,target_y)
+	fmt.Printf("Target (X,Y) (%d,%d)", target_x, target_y)
 }
