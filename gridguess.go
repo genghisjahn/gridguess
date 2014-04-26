@@ -16,6 +16,11 @@ func main() {
 	grid := Grid{}
 	grid.Build()
 
-	fmt.Printf("Is Target: %t.\n", grid.IsPointTarget(5,5))
-	
+	fmt.Printf("Enter Guess: ")
+	var guess_str string
+	_, err := fmt.Scanf("%v", &guess_str)
+	if err != nil {
+		fmt.Printf("Error: %v.\n", err)
+	}
+
 }

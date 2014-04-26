@@ -3,8 +3,6 @@ package main
 import "fmt"
 import "math/rand"
 
-
-
 type Grid struct {
 	Points []Point
 }
@@ -14,14 +12,14 @@ func randInt(min int, max int) int {
 }
 
 func (g *Grid) IsPointTarget(x int, y int) bool {
-	result:=false
+	result := false
 
 	for _, point := range g.Points {
-		if point.x==x && point.y==y{
+		if point.x == x && point.y == y {
 			point.explored = true
-			if point.target{
+			if point.target {
 				result = true
-				break	
+				break
 			}
 		}
 	}
@@ -51,4 +49,8 @@ func (g *Grid) Build() {
 		set_x += 1
 		set_y = 1
 	}
+
+	gresult := GuessResult{}
+	gresult.VerticalPosition = cNorth
+
 }
