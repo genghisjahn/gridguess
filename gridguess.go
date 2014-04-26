@@ -15,7 +15,7 @@ func main() {
 	fmt.Printf("Here is the point %v.\n", point)
 
 	grid := Grid{}
-	grid.Points = make([]Point, 100)
+	// grid.Points = make([]Point, 100)
 
 	v := 1
 	h := 1
@@ -25,10 +25,12 @@ func main() {
 			tempPoint.x = h
 			tempPoint.y = v
 			h += 1
+			grid.Points = append(grid.Points,tempPoint)
 			fmt.Printf("Here is the point %v.\n", tempPoint)
 		}
 		v += 1
 		h = 1
 	}
+	fmt.Printf("Num of Points %v.\n",len(grid.Points))
 
 }
