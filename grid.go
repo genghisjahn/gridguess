@@ -1,15 +1,15 @@
 package main
 
-import "fmt"
 import "math/rand"
 import "strings"
 import "errors"
 import "strconv"
+import "fmt"
 
 type Grid struct {
-	Points  []Point
-	TargetX int
-	TargetY int
+	Points     []Point
+	TargetX    int
+	TargetY    int
 	GuessCount int
 }
 
@@ -40,8 +40,8 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	err_x := errors.New("")
 	err_y := errors.New("")
 	parts := strings.Split(raw_guess, ",")
-	g.GuessCount+=1
-	_ = guess_y
+	g.GuessCount += 1
+	result.GuessCount = g.GuessCount
 	if len(parts) != 2 {
 		err := errors.New(err_msg)
 		return result, err
@@ -53,6 +53,22 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 
 	if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
 		err := errors.New(err_msg)
+		return result, err
+	}
+
+	if guess_x < 1 || guess_y < 1 {
+		err := errors.New("Coordinates must be greater than 0.")
+		return result, err
+	}
+	err_outofbound := ""
+	if guess_x > *width {
+		err_outofbound = fmt.Sprintf("X coordinate can't be greater than %d.\n", *width)
+	}
+	if guess_y > *height {
+		err_outofbound += fmt.Sprintf("Y coordinate can't be greater than %d.", *height)
+	}
+	if err_outofbound != "" {
+		err := errors.New(err_outofbound)
 		return result, err
 	}
 
@@ -75,7 +91,6 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	if guess_y == g.TargetY {
 		result.VerticalPosition = cFound
 	}
-	result.GuessCount=g.GuessCount
 	return result, nil
 }
 
@@ -100,7 +115,6 @@ func (g *Grid) Build() {
 			}
 
 			g.Points = append(g.Points, tempPoint)
-			fmt.Printf("Here is the point %v.\n", tempPoint)
 		}
 		set_x += 1
 		set_y = 1
