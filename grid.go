@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "math/rand"
 
 // import "math/rand"
 
@@ -18,3 +19,7 @@ func (p Point) String() string {
 type Grid struct {
 	Points []Point
 }
+
+func randInt(min int , max int) int {
+    	return min + rand.Intn(max-min)
+	}
