@@ -41,7 +41,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	err_y := errors.New("")
 	parts := strings.Split(raw_guess, ",")
 	g.GuessCount += 1
-	_ = guess_y
+	result.GuessCount = g.GuessCount
 	if len(parts) != 2 {
 		err := errors.New(err_msg)
 		return result, err
@@ -91,7 +91,6 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	if guess_y == g.TargetY {
 		result.VerticalPosition = cFound
 	}
-	result.GuessCount = g.GuessCount
 	return result, nil
 }
 

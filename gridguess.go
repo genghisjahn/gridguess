@@ -33,7 +33,7 @@ func PlayLoop(grid Grid) {
 			fmt.Printf("%v.\n", err_result)
 		}
 		fmt.Printf("%v\n", gresult)
-		if gresult.VerticalPosition == 0 && gresult.HorizontalPosition == 0 {
+		if gresult.VerticalPosition == cFound && gresult.HorizontalPosition == cFound {
 			found = true
 		}
 	}
