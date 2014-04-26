@@ -30,15 +30,15 @@ func (g *Grid) IsPointTarget(x int, y int) bool {
 	return result
 }
 
-func (g *Grid) ProcessGuess(raw_guess string) (GuessResult,error) {
+func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
 	err_msg := "Guess must be in the format #,#.  Example:  5.5"
-	parts:=strings.Split(raw_guess,",")
-	if len(parts)!=2{
+	parts := strings.Split(raw_guess, ",")
+	if len(parts) != 2 {
 		err := errors.New(err_msg)
-		return result,err
+		return result, err
 	}
-	return result,nil
+	return result, nil
 }
 
 func (g *Grid) Build() {

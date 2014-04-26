@@ -22,8 +22,8 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error: %v.\n", err)
 	}
-	gresult,err_result := grid.ProcessGuess(guess_str)
-	if err_result!=nil{
+	gresult, err_result := grid.ProcessGuess(guess_str)
+	if err_result != nil {
 		fmt.Printf("Error: %v.\n", err_result)
 	}
 	_ = gresult
