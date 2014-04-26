@@ -100,7 +100,6 @@ func (g *Grid) Build() {
 			}
 
 			g.Points = append(g.Points, tempPoint)
-			fmt.Printf("Here is the point %v.\n", tempPoint)
 		}
 		set_x += 1
 		set_y = 1
