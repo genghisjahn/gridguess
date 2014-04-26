@@ -20,10 +20,9 @@ func main() {
 
 }
 func PlayLoop(grid Grid) {
-
 	found := false
 	for !found {
-		fmt.Printf("Enter Guess: ")
+		fmt.Printf("Enter Guess:")
 		var guess_str string
 		_, err := fmt.Scanf("%v", &guess_str)
 		if err != nil {
