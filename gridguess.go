@@ -10,6 +10,9 @@ var height = flag.Int("height", 10, "Vertical height of the grid.")
 
 func main(){
 	flag.Parse()
-	fmt.Printf("This grid's width is %d.\n", *width)
-	fmt.Printf("This grid's height is %d.\n", *height)
+
+	point:=Point{}
+	point.x=*width
+	point.y=*height
+	fmt.Printf("Here is the point %v.\n",point)
 }
