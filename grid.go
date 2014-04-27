@@ -26,6 +26,9 @@ func (gc GuessCompare) Error() string {
 	return gc.ErrorMessage
 }
 
+func (gc GuessCompare) String() string {
+	return fmt.Sprintf("This is the %v.",gc.DimensionName)
+}
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
