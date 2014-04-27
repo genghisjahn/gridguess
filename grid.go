@@ -99,15 +99,19 @@ func (g *Grid) Build() {
 	low = p/2*-1
 	high = p/2
 
-	x:=GuessCompare{}
-	y:=GuessCompare{}
-	z:=GuessCompare{}
+	x:=MakeGridCompare(low,high,"East","West","X Axis")
+	y:=MakeGridCompare(low,high,"North","South","Y Axis")
+	z:=GuessCompare{low,high,"Further","Closer","Z Axis"}
 
-	x.Minimum = low
-	x.Maximum = high
-	x.LowHint = "East"
-	x.HighHint = "West"
-	x.DimensionName = "X Axis"
-	x.TargetValue = randInt(low,high)
-		
+}
+
+func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GridCompare{
+	result:=GuessCompare{}
+	result.Minimum = min
+	result.Maximum = max
+	result.LowHint = lowhint
+	result.HighHint = highhint
+	result.DimensionName = dimensionname
+	result.TargetValue = randInt(low,high)
+	return result
 }
