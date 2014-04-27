@@ -22,13 +22,16 @@ type GuessCompare struct {
 	HighHint      string
 }
 
+func (gc GuessCompare) String() string {
+	return fmt.Sprintf("This is the %v",gc.DimensionName)
+}
+/*
 func (gc GuessCompare) Error() string {
 	return gc.ErrorMessage
 }
+*/
 
-func (gc GuessCompare) String() string {
-	return fmt.Sprintf("This is the %v.",gc.DimensionName)
-}
+
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
@@ -111,6 +114,7 @@ func (g *Grid) Build() {
 	y := MakeGridCompare(low, high, "North", "South", "Y Axis")
 	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
 	_,_,_ = x,y,z
+	fmt.Printf("Grid Compare: %v.\n",x)
 }
 
 func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GuessCompare {
