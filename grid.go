@@ -13,11 +13,13 @@ type Grid struct {
 }
 
 type GuessCompare struct {
-	IsActive bool
 	Value int
 	Maximum int
+	Minimim int
 	ErrorMessage string
 	DimensionName string
+	LowHint string
+	HighHint string
 }
 func (gc GuessCompare) Error() string{
 	return gc.ErrorMessage
@@ -93,10 +95,16 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 }
 
 func (g *Grid) Build() {
-	target_x := randInt(1, *width)
-	target_y := randInt(1, *height)
+	p=10
+	low = p/2*-1
+	high = p/2
 
-	g.TargetX = target_x
-	g.TargetY = target_y
+	x:=GuessCompare{}
+	y:=GuessCompare{}
+	z:=GuessCompare{}
 
+	
+
+	target:=randInt(low,high)
+		
 }
