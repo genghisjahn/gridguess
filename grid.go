@@ -7,7 +7,6 @@ import "strconv"
 import "fmt"
 
 type Grid struct {
-	Points     []Point
 	TargetX    int
 	TargetY    int
 	GuessCount int
@@ -17,20 +16,6 @@ func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-func (g *Grid) IsPointTarget(x int, y int) bool {
-	result := false
-
-	for _, point := range g.Points {
-		if point.x == x && point.y == y {
-			point.explored = true
-			if point.target {
-				result = true
-				break
-			}
-		}
-	}
-	return result
-}
 
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
@@ -101,25 +86,4 @@ func (g *Grid) Build() {
 	g.TargetX = target_x
 	g.TargetY = target_y
 
-	set_x := 1
-	set_y := 1
-	for set_x <= *width {
-		for set_y <= *height {
-			tempPoint := Point{}
-			tempPoint.x = set_x
-			tempPoint.y = set_y
-			set_y += 1
-
-			if tempPoint.x == target_x && tempPoint.y == target_y {
-				tempPoint.target = true
-			}
-
-			g.Points = append(g.Points, tempPoint)
-		}
-		set_x += 1
-		set_y = 1
-	}
-
-	gresult := GuessResult{}
-	gresult.VerticalPosition = cNorth
 }
