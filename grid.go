@@ -13,9 +13,9 @@ type Grid struct {
 }
 
 type GuessCompare struct {
-	Value int
+	TargetValue int
 	Maximum int
-	Minimim int
+	Minimum int
 	ErrorMessage string
 	DimensionName string
 	LowHint string
@@ -103,8 +103,11 @@ func (g *Grid) Build() {
 	y:=GuessCompare{}
 	z:=GuessCompare{}
 
-	
-
-	target:=randInt(low,high)
+	x.Minimum = low
+	x.Maximum = high
+	x.LowHint = "East"
+	x.HighHint = "West"
+	x.DimensionName = "X Axis"
+	x.TargetValue = randInt(low,high)
 		
 }
