@@ -120,6 +120,7 @@ func (g *Grid) Build() {
 	x := MakeGridCompare(low, high, "East", "West", "X Axis")
 	y := MakeGridCompare(low, high, "North", "South", "Y Axis")
 	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
+	g.Dimensions.append(g.Dimensions,x)
 }
 
 func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
