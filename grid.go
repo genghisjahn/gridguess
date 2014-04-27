@@ -35,6 +35,7 @@ func randInt(min int, max int) int {
 
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
+	/*
 	valid_len := 2
 	err_msg := "Guess must be in the format #,#,#.  Example:  5,5,5"
 	guess_x := 0
@@ -94,13 +95,14 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	if guess_y == g.TargetY {
 		result.VerticalPosition = cFound
 	}
+	*/
 	return result, nil
 }
 
 func (g *Grid) Build() {
-	p = 10
-	low = p / 2 * -1
-	high = p / 2
+	p := 10
+	low := p / 2 * -1
+	high := p / 2
 
 	//Add ability to deal with odd numbers.
 	//Anthing that is mod 2 !=0 needs to shift + or - one unit
