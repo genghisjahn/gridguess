@@ -101,7 +101,7 @@ func (g *Grid) Build() {
 
 	x:=MakeGridCompare(low,high,"East","West","X Axis")
 	y:=MakeGridCompare(low,high,"North","South","Y Axis")
-	z:=GuessCompare{low,high,"Further","Closer","Z Axis"}
+	z:=MakeGridCompare(low,high,"Further","Closer","Z Axis")
 
 }
 
