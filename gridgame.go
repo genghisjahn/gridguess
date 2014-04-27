@@ -8,7 +8,6 @@ import "github.com/daviddengcn/go-colortext"
 
 var width = flag.Int("width", 10, "Horizontal width of the grid. Default is 10.")
 var height = flag.Int("height", 10, "Vertical height of the grid. Default is 10.")
-var length = flag.Int("length", -1, "Length/Depth of the grid.  Default is -1.")
 
 
 func main() {

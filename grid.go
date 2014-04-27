@@ -9,25 +9,30 @@ import "fmt"
 type Grid struct {
 	TargetX    int
 	TargetY    int
-	TargetZ	int
 	GuessCount int
+}
+
+type GuessCompare struct {
+	IsActive bool
+	Value int
+	Maximum int
+	ErrorMessage string
+	DimensionName string
+}
+func (gc GuessCompare) Error() string{
+	return gc.ErrorMessage
 }
 
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
-	valid_len:=2
+	valid_len := 2
 	err_msg := "Guess must be in the format #,#.  Example:  5.5"
 	guess_x := 0
 	guess_y := 0
-	if *length>0{
-		valid_len = 3
-		err_msg := "Guess must be in the format #,#,#.  Example:  5.5.5"
-	}
 
 	err_x := errors.New("")
 	err_y := errors.New("")
@@ -47,6 +52,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		err := errors.New(err_msg)
 		return result, err
 	}
+
 
 	if guess_x < 1 || guess_y < 1 {
 		err := errors.New("Coordinates must be greater than 0.")
