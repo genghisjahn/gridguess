@@ -9,6 +9,7 @@ import "fmt"
 type Grid struct {
 	TargetX    int
 	TargetY    int
+	TargetZ	int
 	GuessCount int
 }
 
@@ -19,15 +20,21 @@ func randInt(min int, max int) int {
 
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
+	valid_len:=2
 	err_msg := "Guess must be in the format #,#.  Example:  5.5"
 	guess_x := 0
 	guess_y := 0
+	if *length>0{
+		valid_len = 3
+		err_msg := "Guess must be in the format #,#,#.  Example:  5.5.5"
+	}
+
 	err_x := errors.New("")
 	err_y := errors.New("")
 	parts := strings.Split(raw_guess, ",")
 	g.GuessCount += 1
 	result.GuessCount = g.GuessCount
-	if len(parts) != 2 {
+	if len(parts) != valid_len {
 		err := errors.New(err_msg)
 		return result, err
 	}
