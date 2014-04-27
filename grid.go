@@ -13,15 +13,16 @@ type Grid struct {
 }
 
 type GuessCompare struct {
-	TargetValue int
-	Maximum int
-	Minimum int
-	ErrorMessage string
+	TargetValue   int
+	Maximum       int
+	Minimum       int
+	ErrorMessage  string
 	DimensionName string
-	LowHint string
-	HighHint string
+	LowHint       string
+	HighHint      string
 }
-func (gc GuessCompare) Error() string{
+
+func (gc GuessCompare) Error() string {
 	return gc.ErrorMessage
 }
 
@@ -54,7 +55,6 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		err := errors.New(err_msg)
 		return result, err
 	}
-
 
 	if guess_x < 1 || guess_y < 1 {
 		err := errors.New("Coordinates must be greater than 0.")
@@ -95,23 +95,23 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 }
 
 func (g *Grid) Build() {
-	p=10
-	low = p/2*-1
-	high = p/2
+	p = 10
+	low = p / 2 * -1
+	high = p / 2
 
-	x:=MakeGridCompare(low,high,"East","West","X Axis")
-	y:=MakeGridCompare(low,high,"North","South","Y Axis")
-	z:=MakeGridCompare(low,high,"Further","Closer","Z Axis")
+	x := MakeGridCompare(low, high, "East", "West", "X Axis")
+	y := MakeGridCompare(low, high, "North", "South", "Y Axis")
+	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
 
 }
 
-func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GridCompare{
-	result:=GuessCompare{}
+func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GridCompare {
+	result := GuessCompare{}
 	result.Minimum = min
 	result.Maximum = max
 	result.LowHint = lowhint
 	result.HighHint = highhint
 	result.DimensionName = dimensionname
-	result.TargetValue = randInt(low,high)
+	result.TargetValue = randInt(low, high)
 	return result
 }
