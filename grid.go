@@ -36,7 +36,7 @@ func randInt(min int, max int) int {
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
 	valid_len := 2
-	err_msg := "Guess must be in the format #,#.  Example:  5.5"
+	err_msg := "Guess must be in the format #,#,#.  Example:  5,5,5"
 	guess_x := 0
 	guess_y := 0
 
