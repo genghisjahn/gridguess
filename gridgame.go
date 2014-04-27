@@ -6,7 +6,7 @@ import "time"
 import "github.com/daviddengcn/go-colortext"
 
 func main() {
-	flag.Parse()
+	//flag.Parse()
 
 	rand.Seed(time.Now().UTC().UnixNano())
 

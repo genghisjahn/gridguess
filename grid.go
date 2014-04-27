@@ -1,9 +1,9 @@
 package main
 
 import "math/rand"
-import "strings"
-import "errors"
-import "strconv"
+//import "strings"
+//import "errors"
+//import "strconv"
 import "fmt"
 
 type Grid struct {
@@ -110,15 +110,16 @@ func (g *Grid) Build() {
 	x := MakeGridCompare(low, high, "East", "West", "X Axis")
 	y := MakeGridCompare(low, high, "North", "South", "Y Axis")
 	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
+	_,_,_ = x,y,z
 }
 
-func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GridCompare {
+func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GuessCompare {
 	result := GuessCompare{}
 	result.Minimum = min
 	result.Maximum = max
 	result.LowHint = lowhint
 	result.HighHint = highhint
 	result.DimensionName = dimensionname
-	result.TargetValue = randInt(low, high)
+	result.TargetValue = randInt(min, max)
 	return result
 }
