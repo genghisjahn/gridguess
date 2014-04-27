@@ -7,11 +7,11 @@ import "errors"
 import "fmt"
 
 type Grid struct {
-	Dimensions []GuessCompare
+	Dimensions []Dimension
 	GuessCount int
 }
 
-type GuessCompare struct {
+type Dimension struct {
 	TargetValue   int
 	Maximum       int
 	Minimum       int
@@ -21,11 +21,11 @@ type GuessCompare struct {
 	HighHint      string
 }
 
-func (gc GuessCompare) String() string {
+func (gc Dimension) String() string {
 	return fmt.Sprintf("This is the %v",gc.DimensionName)
 }
 /*
-func (gc GuessCompare) Error() string {
+func (gc Dimension) Error() string {
 	return gc.ErrorMessage
 }
 */
@@ -121,8 +121,8 @@ func (g *Grid) Build() {
 	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
 }
 
-func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GuessCompare {
-	result := GuessCompare{}
+func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
+	result := Dimension{}
 	result.Minimum = min
 	result.Maximum = max
 	result.LowHint = lowhint
