@@ -1,14 +1,13 @@
 package main
 
 import "math/rand"
-//import "strings"
-//import "errors"
+import "strings"
+import "errors"
 //import "strconv"
 import "fmt"
 
 type Grid struct {
-	TargetX    int
-	TargetY    int
+	Dimensions []GuessCompare
 	GuessCount int
 }
 
@@ -38,9 +37,16 @@ func randInt(min int, max int) int {
 
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
-	/*
-	valid_len := 2
+	
+	valid_len := 3
 	err_msg := "Guess must be in the format #,#,#.  Example:  5,5,5"
+
+	parts := strings.Split(raw_guess, ",")
+	if len(parts) != valid_len {
+		err := errors.New(err_msg)
+		return result, err
+	}
+	/*
 	guess_x := 0
 	guess_y := 0
 
@@ -113,8 +119,6 @@ func (g *Grid) Build() {
 	x := MakeGridCompare(low, high, "East", "West", "X Axis")
 	y := MakeGridCompare(low, high, "North", "South", "Y Axis")
 	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
-	_,_,_ = x,y,z
-	fmt.Printf("Grid Compare: %v.\n",x)
 }
 
 func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GuessCompare {

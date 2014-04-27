@@ -13,7 +13,7 @@ func main() {
 	grid := Grid{}
 	grid.Build()
 
-	// PlayLoop(grid)
+	PlayLoop(grid)
 
 }
 func PlayLoop(grid Grid) {
