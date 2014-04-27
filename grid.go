@@ -102,10 +102,12 @@ func (g *Grid) Build() {
 	low = p / 2 * -1
 	high = p / 2
 
+	//Add ability to deal with odd numbers.
+	//Anthing that is mod 2 !=0 needs to shift + or - one unit
+
 	x := MakeGridCompare(low, high, "East", "West", "X Axis")
 	y := MakeGridCompare(low, high, "North", "South", "Y Axis")
 	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
-
 }
 
 func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) GridCompare {
