@@ -117,13 +117,13 @@ func (g *Grid) Build() {
 	//Add ability to deal with odd numbers.
 	//Anthing that is mod 2 !=0 needs to shift + or - one unit
 
-	x := MakeGridCompare(low, high, "East", "West", "X Axis")
-	y := MakeGridCompare(low, high, "North", "South", "Y Axis")
-	z := MakeGridCompare(low, high, "Further", "Closer", "Z Axis")
+	x := MakeGridDimension(low, high, "East", "West", "X Axis")
+	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
+	z := MakeGridDimension(low, high, "Further", "Closer", "Z Axis")
 	g.Dimensions = append(g.Dimensions, x, y, z)
 }
 
-func MakeGridCompare(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
+func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
 	result := Dimension{}
 	result.Minimum = min
 	result.Maximum = max
