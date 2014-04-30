@@ -32,7 +32,7 @@ func randInt(min int, max int) int {
 
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
-
+	g.GuessCount += 1
 	valid_len := 3
 	err_msg := "Guess must be in the format #,#,#.  Example:  5,5,5"
 
@@ -68,12 +68,12 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 			temp += " - " + dimension.DimensionName + " is correct."
 		}
 	}
-	if result.Found{
-		result.Message="You guessed the point!"
-	}else{
+	if result.Found {
+		result.Message = "You guessed the point!"
+	} else {
 		result.Message = temp
 	}
-	
+
 	return result, nil
 }
 
@@ -89,6 +89,7 @@ func (g *Grid) Build() {
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
 	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis")
 	g.Dimensions = append(g.Dimensions, x, y, z)
+	g.GuessCount = 1
 }
 
 func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
