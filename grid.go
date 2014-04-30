@@ -41,8 +41,8 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		return result, err
 	}
 	guess_coordinates := make([]int, 3)
-	
-	for index , g := range parts {
+
+	for index, g := range parts {
 		guess_val := 0
 		err_d := errors.New("")
 		guess_val, err_d = strconv.Atoi(g)
@@ -50,25 +50,20 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 			err := errors.New(err_msg)
 			return result, err
 		}
-		fmt.Printf("Guess Coords: %v.\n",guess_val)
-		guess_coordinates[index] =  guess_val
-	}
-	for _ , g2 := range guess_coordinates{
-		fmt.Printf("G2 BANG: %v.\n",g2)
+		guess_coordinates[index] = guess_val
 	}
 	temp := ""
 	for index, dimension := range g.Dimensions {
-		fmt.Printf("Guess Index %v.\n",index)
-		if guess_coordinates[index] < dimension.TargetValue {			
-			temp += " - " + dimension.LowHint  
+		fmt.Printf("Guess Index %v.\n", index)
+		if guess_coordinates[index] < dimension.TargetValue {
+			temp += " - " + dimension.LowHint
 		}
 		if guess_coordinates[index] > dimension.TargetValue {
-			temp += " - " + dimension.HighHint  
+			temp += " - " + dimension.HighHint
 		}
 		if guess_coordinates[index] == dimension.TargetValue {
-			temp += " - " + dimension.DimensionName + " is correct."  
+			temp += " - " + dimension.DimensionName + " is correct."
 		}
-		// fmt.Printf("Target %v: %v\n",dimension.DimensionName,dimension.TargetValue)
 	}
 	fmt.Printf(temp + "\n")
 	return result, nil
@@ -87,8 +82,8 @@ func (g *Grid) Build() {
 	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis")
 	g.Dimensions = append(g.Dimensions, x, y, z)
 
-	for _,d := range g.Dimensions{
-		fmt.Printf("%v - %v.\n", d.DimensionName,d.TargetValue)
+	for _, d := range g.Dimensions {
+		fmt.Printf("%v - %v.\n", d.DimensionName, d.TargetValue)
 	}
 }
 
