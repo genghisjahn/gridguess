@@ -3,8 +3,7 @@ package main
 import "math/rand"
 import "strings"
 import "errors"
-
-//import "strconv"
+import "strconv"
 import "fmt"
 
 type Grid struct {
@@ -47,11 +46,22 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		err := errors.New(err_msg)
 		return result, err
 	}
+	guess_coordinates := make([]int, 3)
+	for _, g := range parts{
+		guess := 0
+		err_d := errors.New("")
+		if guess, err_d = strconv.Atoi(g); err_d != nil {
+			err := errors.New(err_msg)
+			return result, err
+		}
+		guess_coordinates = append(guess_coordinates,guess)
+	}
+	//guess_coordinates := []int{parts[0],parts[1],partsp[2]}
 
 	for _, d := range g.Dimensions {
 		fmt.Printf("Dimension: %v\n", d)
 	}
-
+	_ = guess_coordinates
 	/*
 		guess_x := 0
 		guess_y := 0
