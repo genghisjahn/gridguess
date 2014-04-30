@@ -33,7 +33,7 @@ func PlayLoop(grid Grid) {
 			fmt.Printf("%v.\n", err_result)
 		}
 		ct.ChangeColor(ct.Yellow, true, ct.Black, false)
-		if gresult.VerticalPosition == cFound && gresult.HorizontalPosition == cFound {
+		if gresult.Found == true {
 			found = true
 			ct.ChangeColor(ct.Green, true, ct.Black, false)
 		}

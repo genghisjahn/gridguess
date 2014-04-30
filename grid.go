@@ -19,6 +19,7 @@ type Dimension struct {
 	DimensionName string
 	LowHint       string
 	HighHint      string
+	Found         bool
 }
 
 func (gc Dimension) String() string {
@@ -53,19 +54,26 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		guess_coordinates[index] = guess_val
 	}
 	temp := ""
+	result.Found = true
 	for index, dimension := range g.Dimensions {
-		fmt.Printf("Guess Index %v.\n", index)
 		if guess_coordinates[index] < dimension.TargetValue {
 			temp += " - " + dimension.LowHint
+			result.Found = false
 		}
 		if guess_coordinates[index] > dimension.TargetValue {
 			temp += " - " + dimension.HighHint
+			result.Found = false
 		}
 		if guess_coordinates[index] == dimension.TargetValue {
 			temp += " - " + dimension.DimensionName + " is correct."
 		}
 	}
-	fmt.Printf(temp + "\n")
+	if result.Found{
+		result.Message="You guessed the point!"
+	}else{
+		result.Message = temp
+	}
+	
 	return result, nil
 }
 
@@ -91,5 +99,6 @@ func MakeGridDimension(min int, max int, lowhint string, highhint string, dimens
 	result.HighHint = highhint
 	result.DimensionName = dimensionname
 	result.TargetValue = randInt(min, max)
+	result.Found = false
 	return result
 }
