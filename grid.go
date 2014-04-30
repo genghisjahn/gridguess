@@ -42,7 +42,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	}
 	guess_coordinates := make([]int, 3)
 	
-	for _, g := range parts {
+	for index , g := range parts {
 		guess_val := 0
 		err_d := errors.New("")
 		guess_val, err_d = strconv.Atoi(g)
@@ -51,9 +51,11 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 			return result, err
 		}
 		fmt.Printf("Guess Coords: %v.\n",guess_val)
-		guess_coordinates = append(guess_coordinates, guess_val)
+		guess_coordinates[index] =  guess_val
 	}
-
+	for _ , g2 := range guess_coordinates{
+		fmt.Printf("G2 BANG: %v.\n",g2)
+	}
 	temp := ""
 	for index, dimension := range g.Dimensions {
 		fmt.Printf("Guess Index %v.\n",index)
