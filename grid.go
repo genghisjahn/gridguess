@@ -25,12 +25,6 @@ func (gc Dimension) String() string {
 	return fmt.Sprintf("This is the %v", gc.DimensionName)
 }
 
-/*
-func (gc Dimension) Error() string {
-	return gc.ErrorMessage
-}
-*/
-
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
@@ -60,70 +54,19 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	/* Guess coordinates must be evaluted in the same order
 	as the Dimensions on the Gris.
 	*/
-
-	for _, d := range g.Dimensions {
-		fmt.Printf("Dimension: %v\n", d)
+	temp := ""
+	for index, dimension := range g.Dimensions {
+		if guess_coordinates[index] < dimension.TargetValue {
+			temp += " - " + dimension.LowHint
+		}
+		if guess_coordinates[index] > dimension.TargetValue {
+			temp += " - " + dimension.HighHint
+		}
+		if guess_coordinates[index] == dimension.TargetValue {
+			temp += " - " + dimension.DimensionName + " is correct."
+		}
 	}
-
-	/*
-		guess_x := 0
-		guess_y := 0
-
-		err_x := errors.New("")
-		err_y := errors.New("")
-		parts := strings.Split(raw_guess, ",")
-		g.GuessCount += 1
-		result.GuessCount = g.GuessCount
-		if len(parts) != valid_len {
-			err := errors.New(err_msg)
-			return result, err
-		}
-		if guess_x, err_x = strconv.Atoi(parts[0]); err_x != nil {
-			err := errors.New(err_msg)
-			return result, err
-		}
-
-		if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
-			err := errors.New(err_msg)
-			return result, err
-		}
-
-		if guess_x < 1 || guess_y < 1 {
-			err := errors.New("Coordinates must be greater than 0.")
-			return result, err
-		}
-		err_outofbound := ""
-		if guess_x > *width {
-			err_outofbound = fmt.Sprintf("X coordinate can't be greater than %d.\n", *width)
-		}
-		if guess_y > *height {
-			err_outofbound += fmt.Sprintf("Y coordinate can't be greater than %d.", *height)
-		}
-		if err_outofbound != "" {
-			err := errors.New(err_outofbound)
-			return result, err
-		}
-
-		if guess_x > g.TargetX {
-			result.HorizontalPosition = cWest
-		}
-		if guess_x < g.TargetX {
-			result.HorizontalPosition = cEast
-		}
-		if guess_x == g.TargetX {
-			result.HorizontalPosition = cFound
-		}
-
-		if guess_y > g.TargetY {
-			result.VerticalPosition = cNorth
-		}
-		if guess_y < g.TargetY {
-			result.VerticalPosition = cSouth
-		}
-		if guess_y == g.TargetY {
-			result.VerticalPosition = cFound
-		}
-	*/
+	fmt.Printf(temp + "\n")
 	return result, nil
 }
 
