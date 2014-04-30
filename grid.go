@@ -81,10 +81,6 @@ func (g *Grid) Build() {
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
 	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis")
 	g.Dimensions = append(g.Dimensions, x, y, z)
-
-	for _, d := range g.Dimensions {
-		fmt.Printf("%v - %v.\n", d.DimensionName, d.TargetValue)
-	}
 }
 
 func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
