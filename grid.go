@@ -47,6 +47,11 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		err := errors.New(err_msg)
 		return result, err
 	}
+
+	for _, d := range g.Dimensions {
+		fmt.Printf("Dimension: %v\n", d)
+	}
+
 	/*
 		guess_x := 0
 		guess_y := 0
