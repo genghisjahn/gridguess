@@ -56,15 +56,16 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	*/
 	temp := ""
 	for index, dimension := range g.Dimensions {
-		if guess_coordinates[index] < dimension.TargetValue {
-			temp += " - " + dimension.LowHint
+		if guess_coordinates[index] < dimension.TargetValue {			
+			temp += " - " + dimension.LowHint  
 		}
 		if guess_coordinates[index] > dimension.TargetValue {
-			temp += " - " + dimension.HighHint
+			temp += " - " + dimension.HighHint  
 		}
 		if guess_coordinates[index] == dimension.TargetValue {
-			temp += " - " + dimension.DimensionName + " is correct."
+			temp += " - " + dimension.DimensionName + " is correct."  
 		}
+		fmt.Printf("Target %v: %v\n",dimension.DimensionName,dimension.TargetValue)
 	}
 	fmt.Printf(temp + "\n")
 	return result, nil
@@ -82,6 +83,10 @@ func (g *Grid) Build() {
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
 	z := MakeGridDimension(low, high, "Further", "Closer", "Z Axis")
 	g.Dimensions = append(g.Dimensions, x, y, z)
+
+	for _,d := range g.Dimensions{
+		fmt.Printf("%v - %v.\n", d.DimensionName,d.TargetValue)
+	}
 }
 
 func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
