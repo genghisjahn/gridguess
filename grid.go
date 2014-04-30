@@ -41,21 +41,22 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		return result, err
 	}
 	guess_coordinates := make([]int, 3)
+	
 	for _, g := range parts {
-		guess := 0
+		guess_val := 0
 		err_d := errors.New("")
-		if guess, err_d = strconv.Atoi(g); err_d != nil {
+		guess_val, err_d = strconv.Atoi(g)
+		if err_d != nil {
 			err := errors.New(err_msg)
 			return result, err
 		}
-		guess_coordinates = append(guess_coordinates, guess)
+		fmt.Printf("Guess Coords: %v.\n",guess_val)
+		guess_coordinates = append(guess_coordinates, guess_val)
 	}
 
-	/* Guess coordinates must be evaluted in the same order
-	as the Dimensions on the Gris.
-	*/
 	temp := ""
 	for index, dimension := range g.Dimensions {
+		fmt.Printf("Guess Index %v.\n",index)
 		if guess_coordinates[index] < dimension.TargetValue {			
 			temp += " - " + dimension.LowHint  
 		}
@@ -65,7 +66,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		if guess_coordinates[index] == dimension.TargetValue {
 			temp += " - " + dimension.DimensionName + " is correct."  
 		}
-		fmt.Printf("Target %v: %v\n",dimension.DimensionName,dimension.TargetValue)
+		// fmt.Printf("Target %v: %v\n",dimension.DimensionName,dimension.TargetValue)
 	}
 	fmt.Printf(temp + "\n")
 	return result, nil
@@ -81,7 +82,7 @@ func (g *Grid) Build() {
 
 	x := MakeGridDimension(low, high, "East", "West", "X Axis")
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
-	z := MakeGridDimension(low, high, "Further", "Closer", "Z Axis")
+	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis")
 	g.Dimensions = append(g.Dimensions, x, y, z)
 
 	for _,d := range g.Dimensions{
