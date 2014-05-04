@@ -1,5 +1,6 @@
 package main
 
+import "math"
 import "math/rand"
 import "strings"
 import "errors"
@@ -7,83 +8,106 @@ import "strconv"
 import "fmt"
 
 type Grid struct {
-	TargetX    int
-	TargetY    int
+	Dimensions []Dimension
 	GuessCount int
+}
+
+type Dimension struct {
+	TargetValue   int
+	Maximum       int
+	Minimum       int
+	ErrorMessage  string
+	DimensionName string
+	LowHint       string
+	HighHint      string
+	Found         bool
+}
+
+func (gc Dimension) String() string {
+	return fmt.Sprintf("This is the %v", gc.DimensionName)
 }
 
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-
 func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
-	err_msg := "Guess must be in the format #,#.  Example:  5.5"
-	guess_x := 0
-	guess_y := 0
-	err_x := errors.New("")
-	err_y := errors.New("")
-	parts := strings.Split(raw_guess, ",")
 	g.GuessCount += 1
-	result.GuessCount = g.GuessCount
-	if len(parts) != 2 {
+	valid_len := 3
+	err_msg := "Guess must be in the format #,#,#.  Example:  5,5,5"
+
+	parts := strings.Split(raw_guess, ",")
+	if len(parts) != valid_len {
 		err := errors.New(err_msg)
 		return result, err
 	}
-	if guess_x, err_x = strconv.Atoi(parts[0]); err_x != nil {
-		err := errors.New(err_msg)
-		return result, err
+	guess_coordinates := make([]int, 3)
+
+	for index, g := range parts {
+		guess_val := 0
+		err_d := errors.New("")
+		guess_val, err_d = strconv.Atoi(g)
+		if err_d != nil {
+			err := errors.New(err_msg)
+			return result, err
+		}
+		guess_coordinates[index] = guess_val
+	}
+	temp := ""
+	result.Found = true
+	for index, dimension := range g.Dimensions {
+		if guess_coordinates[index] < dimension.TargetValue {
+			temp += " - " + dimension.LowHint
+			result.Found = false
+		}
+		if guess_coordinates[index] > dimension.TargetValue {
+			temp += " - " + dimension.HighHint
+			result.Found = false
+		}
+		if guess_coordinates[index] == dimension.TargetValue {
+			temp += " - " + dimension.DimensionName + " is correct."
+		}
+	}
+	if result.Found {
+		result.Message = "You guessed the point!"
+	} else {
+		result.Message = temp
 	}
 
-	if guess_y, err_y = strconv.Atoi(parts[1]); err_y != nil {
-		err := errors.New(err_msg)
-		return result, err
-	}
-
-	if guess_x < 1 || guess_y < 1 {
-		err := errors.New("Coordinates must be greater than 0.")
-		return result, err
-	}
-	err_outofbound := ""
-	if guess_x > *width {
-		err_outofbound = fmt.Sprintf("X coordinate can't be greater than %d.\n", *width)
-	}
-	if guess_y > *height {
-		err_outofbound += fmt.Sprintf("Y coordinate can't be greater than %d.", *height)
-	}
-	if err_outofbound != "" {
-		err := errors.New(err_outofbound)
-		return result, err
-	}
-
-	if guess_x > g.TargetX {
-		result.HorizontalPosition = cWest
-	}
-	if guess_x < g.TargetX {
-		result.HorizontalPosition = cEast
-	}
-	if guess_x == g.TargetX {
-		result.HorizontalPosition = cFound
-	}
-
-	if guess_y > g.TargetY {
-		result.VerticalPosition = cNorth
-	}
-	if guess_y < g.TargetY {
-		result.VerticalPosition = cSouth
-	}
-	if guess_y == g.TargetY {
-		result.VerticalPosition = cFound
-	}
 	return result, nil
 }
 
-func (g *Grid) Build() {
-	target_x := randInt(1, *width)
-	target_y := randInt(1, *height)
+func (g *Grid) Build(length int) {
+	low:=0
+	high:=0
+	if math.Mod(float64(length), 2) == 0 {
+		low = length / 2 * -1
+		high = length / 2
+	} else {
+		low = (length-1) / 2 * -1
+		high = (length+1) /2 
+	}
 
-	g.TargetX = target_x
-	g.TargetY = target_y
+	fmt.Printf("Max West is : %v.  Max East is %v.\n",low,high)
+	fmt.Printf("Max South is :%v.  Max North is %v.\n",low,high)
+	fmt.Printf("Furthest is :%v.  Closest is %v.\n",low,high)
 
+	x := MakeGridDimension(low, high, "East", "West", "X Axis")
+	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
+	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis")
+	g.Dimensions = append(g.Dimensions, x, y, z)
+	g.GuessCount = 1
+}
+
+func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
+	result := Dimension{}
+	result.Minimum = min
+	result.Maximum = max
+	result.LowHint = lowhint
+	result.HighHint = highhint
+	result.DimensionName = dimensionname
+	result.TargetValue = randInt(min, max)
+	result.Found = false
+	return result
 }

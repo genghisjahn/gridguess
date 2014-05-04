@@ -1,21 +1,21 @@
 package main
 
 import "fmt"
-import "flag"
 import "math/rand"
 import "time"
 import "github.com/daviddengcn/go-colortext"
+import "flag"
 
-var width = flag.Int("width", 10, "Horizontal width of the grid. Default is 10.")
-var height = flag.Int("height", 10, "Vertical height of the grid. Default is 10.")
+var length = flag.Int("length", 10, "Length for each dimension.  Default is 10.")
 
 func main() {
+
 	flag.Parse()
 
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	grid := Grid{}
-	grid.Build()
+	grid.Build(*length)
 
 	PlayLoop(grid)
 
@@ -37,7 +37,7 @@ func PlayLoop(grid Grid) {
 			fmt.Printf("%v.\n", err_result)
 		}
 		ct.ChangeColor(ct.Yellow, true, ct.Black, false)
-		if gresult.VerticalPosition == cFound && gresult.HorizontalPosition == cFound {
+		if gresult.Found == true {
 			found = true
 			ct.ChangeColor(ct.Green, true, ct.Black, false)
 		}
