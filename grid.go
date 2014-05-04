@@ -1,5 +1,6 @@
 package main
 
+import "math"
 import "math/rand"
 import "strings"
 import "errors"
@@ -78,11 +79,19 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 }
 
 func (g *Grid) Build(length int) {
-	low := length / 2 * -1
-	high := length / 2
+	low:=0
+	high:=0
+	if math.Mod(float64(length), 2) == 0 {
+		low = length / 2 * -1
+		high = length / 2
+	} else {
+		low = (length-1) / 2 * -1
+		high = (length+1) /2 
+	}
 
-	//Add ability to deal with odd numbers.
-	//Anthing that is mod 2 !=0 needs to shift + or - one unit
+	fmt.Printf("Max West is : %v.  Max East is %v.\n",low,high)
+	fmt.Printf("Max South is :%v.  Max North is %v.\n",low,high)
+	fmt.Printf("Furthest is :%v.  Closest is %v.\n",low,high)
 
 	x := MakeGridDimension(low, high, "East", "West", "X Axis")
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis")

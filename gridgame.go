@@ -7,8 +7,9 @@ import "github.com/daviddengcn/go-colortext"
 import "flag"
 
 var length = flag.Int("length", 10, "Length for each dimension.  Default is 10.")
+
 func main() {
-	
+
 	flag.Parse()
 
 	rand.Seed(time.Now().UTC().UnixNano())
