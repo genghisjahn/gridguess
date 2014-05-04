@@ -77,10 +77,9 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	return result, nil
 }
 
-func (g *Grid) Build() {
-	p := 10
-	low := p / 2 * -1
-	high := p / 2
+func (g *Grid) Build(length int) {
+	low := length / 2 * -1
+	high := length / 2
 
 	//Add ability to deal with odd numbers.
 	//Anthing that is mod 2 !=0 needs to shift + or - one unit

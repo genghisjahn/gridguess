@@ -4,14 +4,17 @@ import "fmt"
 import "math/rand"
 import "time"
 import "github.com/daviddengcn/go-colortext"
+import "flag"
 
+var length = flag.Int("length", 10, "Length for each dimension.  Default is 10.")
 func main() {
-	//flag.Parse()
+	
+	flag.Parse()
 
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	grid := Grid{}
-	grid.Build()
+	grid.Build(*length)
 
 	PlayLoop(grid)
 
