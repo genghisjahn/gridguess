@@ -67,21 +67,21 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result.Found = true
 	for index, dimension := range g.Dimensions {
 		if guess_coordinates[index] < dimension.TargetValue {
-			temp += " - " + dimension.LowHint
+			temp += " " + dimension.LowHint
 			result.Found = false
 		}
 		if guess_coordinates[index] > dimension.TargetValue {
-			temp += " - " + dimension.HighHint
+			temp += " " + dimension.HighHint
 			result.Found = false
 		}
 		if guess_coordinates[index] == dimension.TargetValue {
-			temp += " - " + dimension.DimensionName + " is correct."
+			temp += " " + dimension.DimensionName + " is correct."
 		}
 	}
 	if result.Found {
 		result.Message = "You guessed the point!"
 	} else {
-		result.Message = temp
+		result.Message = "Result: " + temp
 	}
 
 	return result, nil
