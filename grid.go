@@ -79,19 +79,19 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 }
 
 func (g *Grid) Build(length int) {
-	low:=0
-	high:=0
+	low := 0
+	high := 0
 	if math.Mod(float64(length), 2) == 0 {
 		low = length / 2 * -1
 		high = length / 2
 	} else {
-		low = (length-1) / 2 * -1
-		high = (length+1) /2 
+		low = (length - 1) / 2 * -1
+		high = (length + 1) / 2
 	}
 
-	fmt.Printf("Max West is : %v.  Max East is %v.\n",low,high)
-	fmt.Printf("Max South is :%v.  Max North is %v.\n",low,high)
-	fmt.Printf("Furthest is :%v.  Closest is %v.\n",low,high)
+	fmt.Printf("Max West   :%v.   Max East:   %v.\n", low, high)
+	fmt.Printf("Max South  :%v.   Max North:  %v.\n", low, high)
+	fmt.Printf("Furthest   :%v.   Closest:    %v.\n", low, high)
 
 	x := MakeGridDimension(low, high, "East", "West", "X Axis")
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
