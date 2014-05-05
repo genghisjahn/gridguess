@@ -17,8 +17,7 @@ func main() {
 }
 func PlayLoop(grid Grid) {
 	found := false
-	grid.DescribeSpace()
-	fmt.Printf("\n")
+	fmt.Printf("%v\n", grid.DescribeSpace())
 	for !found {
 		ct.ChangeColor(ct.Blue, true, ct.Black, false)
 		fmt.Printf("\nEnter Guess: ")
@@ -40,7 +39,6 @@ func PlayLoop(grid Grid) {
 		}
 		fmt.Printf("%v\n\n", gresult)
 		ct.ChangeColor(ct.Green, true, ct.Black, false)
-		grid.DescribeSpace()
 	}
 	fmt.Printf("\n\n")
 }

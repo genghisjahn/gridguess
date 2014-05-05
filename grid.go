@@ -77,11 +77,12 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 		if guess_coordinates[index] == dimension.TargetValue {
 			temp += " " + dimension.DimensionName + " is correct."
 		}
+		temp += "\n"
 	}
 	if result.Found {
 		result.Message = "You guessed the point!"
 	} else {
-		result.Message = "Result: " + temp
+		result.Message = "Result: \n" + temp
 	}
 
 	return result, nil
@@ -111,10 +112,12 @@ func (g *Grid) Build(length int) {
 	g.GuessCount = 1
 }
 
-func (g *Grid) DescribeSpace() {
+func (g *Grid) DescribeSpace() string {
+	result := ""
 	for _, value := range g.Dimensions {
-		fmt.Printf(value.Description)
+		result += fmt.Sprintf("%v", value.Description)
 	}
+	return result
 }
 
 func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string, description string) Dimension {
