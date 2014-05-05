@@ -20,7 +20,7 @@ func PlayLoop(grid Grid) {
 	fmt.Printf("%v\n", grid.DescribeSpace())
 	for !found {
 		ct.ChangeColor(ct.Blue, true, ct.Black, false)
-		fmt.Printf("\nEnter Guess: ")
+		fmt.Printf("\nEnter Guess #%v: ",grid.GuessCount)
 		var guess_str string
 		_, err := fmt.Scanf("%v", &guess_str)
 		if err != nil {
