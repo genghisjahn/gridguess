@@ -15,18 +15,18 @@ type Grid struct {
 }
 
 type Dimension struct {
-	TargetValue   int
-	Maximum       int
-	Minimum       int
-	Description   string
-	DimensionName string
-	LowHint       string
-	HighHint      string
-	Found         bool
+	TargetValue int
+	Maximum     int
+	Minimum     int
+	Description string
+	Name        string
+	LowHint     string
+	HighHint    string
+	Found       bool
 }
 
 func (gc Dimension) String() string {
-	return fmt.Sprintf("This is the %v", gc.DimensionName)
+	return fmt.Sprintf("This is the %v", gc.Name)
 }
 
 func randInt(min int, max int) int {
@@ -75,7 +75,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 			result.Found = false
 		}
 		if guess_coordinates[index] == dimension.TargetValue {
-			temp += " " + dimension.DimensionName + " is correct."
+			temp += " " + dimension.Name + " is correct."
 		}
 		temp += "\n"
 	}
@@ -120,13 +120,13 @@ func (g *Grid) DescribeSpace() string {
 	return result
 }
 
-func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string, description string) Dimension {
+func MakeGridDimension(min int, max int, lowhint string, highhint string, Name string, description string) Dimension {
 	result := Dimension{}
 	result.Minimum = min
 	result.Maximum = max
 	result.LowHint = lowhint
 	result.HighHint = highhint
-	result.DimensionName = dimensionname
+	result.Name = Name
 	result.TargetValue = randInt(min, max)
 	result.Found = false
 	result.Description = description
