@@ -10,6 +10,8 @@ import "fmt"
 type Grid struct {
 	Dimensions []Dimension
 	GuessCount int
+	Low        int
+	High       int
 }
 
 type Dimension struct {
@@ -35,7 +37,7 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	result := GuessResult{}
 	g.GuessCount += 1
 	valid_len := 3
-	err_msg := "Guess must be in the format #,#,#.  Example:  5,5,5"
+	err_msg := "Guess must be in the format #,#,#.  Example:  0,0,0"
 
 	parts := strings.Split(raw_guess, ",")
 	if len(parts) != valid_len {
@@ -44,15 +46,22 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 	}
 	guess_coordinates := make([]int, 3)
 
-	for index, g := range parts {
+	for index, g_val := range parts {
 		guess_val := 0
 		err_d := errors.New("")
-		guess_val, err_d = strconv.Atoi(g)
+		guess_val, err_d = strconv.Atoi(g_val)
 		if err_d != nil {
 			err := errors.New(err_msg)
 			return result, err
 		}
-		guess_coordinates[index] = guess_val
+		if guess_val <= g.High && guess_val >= g.Low {
+			guess_coordinates[index] = guess_val
+		} else {
+			range_err_msg := fmt.Sprintf("Guess must be from %v to %v.  You guessed %v.", g.Low, g.High, guess_val)
+			err := errors.New(range_err_msg)
+			return result, err
+		}
+
 	}
 	temp := ""
 	result.Found = true
@@ -88,16 +97,24 @@ func (g *Grid) Build(length int) {
 		low = (length - 1) / 2 * -1
 		high = (length + 1) / 2
 	}
+	g.Low = low
+	g.High = high
 
-	x_desc = fmt.Scanf(" Max West: %v.   Max East: %v.\n", low, high)
-	y_desc = fmt.Scanf("Max South: %v.   Max North: %v.\n", low, high)
-	z_desc = fmt.Scanf(" Furthest: %v.     Closest: %v.\n", low, high)
+	x_desc := fmt.Sprintf(" Max West: %v.    Max East: %v.\n", low, high)
+	y_desc := fmt.Sprintf("Max South: %v.   Max North: %v.\n", low, high)
+	z_desc := fmt.Sprintf(" Furthest: %v.     Closest: %v.\n", low, high)
 
 	x := MakeGridDimension(low, high, "East", "West", "X Axis", x_desc)
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis", y_desc)
 	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis", z_desc)
 	g.Dimensions = append(g.Dimensions, x, y, z)
 	g.GuessCount = 1
+}
+
+func (g *Grid) DescribeSpace() {
+	for _, value := range g.Dimensions {
+		fmt.Printf(value.Description)
+	}
 }
 
 func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string, description string) Dimension {
@@ -109,5 +126,6 @@ func MakeGridDimension(min int, max int, lowhint string, highhint string, dimens
 	result.DimensionName = dimensionname
 	result.TargetValue = randInt(min, max)
 	result.Found = false
+	result.Description = description
 	return result
 }
