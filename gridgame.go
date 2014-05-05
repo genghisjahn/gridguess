@@ -9,22 +9,18 @@ import "flag"
 var length = flag.Int("length", 10, "Length for each dimension.  Default is 10.")
 
 func main() {
-
 	flag.Parse()
-
 	rand.Seed(time.Now().UTC().UnixNano())
-
 	grid := Grid{}
 	grid.Build(*length)
-
 	PlayLoop(grid)
-
 }
 func PlayLoop(grid Grid) {
 	found := false
+	fmt.Printf("%v\n", grid.DescribeSpace())
 	for !found {
 		ct.ChangeColor(ct.Blue, true, ct.Black, false)
-		fmt.Printf("\nEnter Guess:")
+		fmt.Printf("\nEnter Guess: ")
 		var guess_str string
 		_, err := fmt.Scanf("%v", &guess_str)
 		if err != nil {
@@ -41,7 +37,8 @@ func PlayLoop(grid Grid) {
 			found = true
 			ct.ChangeColor(ct.Green, true, ct.Black, false)
 		}
-		fmt.Printf("%v\n", gresult)
+		fmt.Printf("%v\n\n", gresult)
+		ct.ChangeColor(ct.Green, true, ct.Black, false)
 	}
 	fmt.Printf("\n\n")
 }
