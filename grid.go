@@ -16,7 +16,7 @@ type Dimension struct {
 	TargetValue   int
 	Maximum       int
 	Minimum       int
-	ErrorMessage  string
+	Description   string
 	DimensionName string
 	LowHint       string
 	HighHint      string
@@ -79,28 +79,28 @@ func (g *Grid) ProcessGuess(raw_guess string) (GuessResult, error) {
 }
 
 func (g *Grid) Build(length int) {
-	low:=0
-	high:=0
+	low := 0
+	high := 0
 	if math.Mod(float64(length), 2) == 0 {
 		low = length / 2 * -1
 		high = length / 2
 	} else {
-		low = (length-1) / 2 * -1
-		high = (length+1) /2 
+		low = (length - 1) / 2 * -1
+		high = (length + 1) / 2
 	}
 
-	fmt.Printf("Max West is : %v.  Max East is %v.\n",low,high)
-	fmt.Printf("Max South is :%v.  Max North is %v.\n",low,high)
-	fmt.Printf("Furthest is :%v.  Closest is %v.\n",low,high)
+	x_desc = fmt.Scanf(" Max West: %v.   Max East: %v.\n", low, high)
+	y_desc = fmt.Scanf("Max South:%v.   Max North: %v.\n", low, high)
+	z_desc = fmt.Scanf(" Furthest:%v.     Closest: %v.\n", low, high)
 
-	x := MakeGridDimension(low, high, "East", "West", "X Axis")
-	y := MakeGridDimension(low, high, "North", "South", "Y Axis")
-	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis")
+	x := MakeGridDimension(low, high, "East", "West", "X Axis", x_desc)
+	y := MakeGridDimension(low, high, "North", "South", "Y Axis", y_desc)
+	z := MakeGridDimension(low, high, "Closer", "Further", "Z Axis", z_desc)
 	g.Dimensions = append(g.Dimensions, x, y, z)
 	g.GuessCount = 1
 }
 
-func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string) Dimension {
+func MakeGridDimension(min int, max int, lowhint string, highhint string, dimensionname string, description string) Dimension {
 	result := Dimension{}
 	result.Minimum = min
 	result.Maximum = max
