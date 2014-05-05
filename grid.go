@@ -90,8 +90,8 @@ func (g *Grid) Build(length int) {
 	}
 
 	x_desc = fmt.Scanf(" Max West: %v.   Max East: %v.\n", low, high)
-	y_desc = fmt.Scanf("Max South:%v.   Max North: %v.\n", low, high)
-	z_desc = fmt.Scanf(" Furthest:%v.     Closest: %v.\n", low, high)
+	y_desc = fmt.Scanf("Max South: %v.   Max North: %v.\n", low, high)
+	z_desc = fmt.Scanf(" Furthest: %v.     Closest: %v.\n", low, high)
 
 	x := MakeGridDimension(low, high, "East", "West", "X Axis", x_desc)
 	y := MakeGridDimension(low, high, "North", "South", "Y Axis", y_desc)
