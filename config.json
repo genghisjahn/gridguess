@@ -1,7 +1,7 @@
 {
     "Dimensions":[
-    	{"TargetValue":0,"Maximum":0}, 
-    	{"id":56,"Title":"USA"}, 
-    	{"id":89,"Title":"England"}
+    	{"Description":"Max West: %v.  Max East: %v.","Name":"X Axis","LowHint":"East","HighHint":"West"}, 
+    	{"Description":"Max South: %v. Max North: %v.","Name":"Y Axis","LowHint":"South","HighHint":"North"}, 
+    	{"Description":"Furthset: %v. Closest: %v.","Name":"Z Axis","LowHint":"Closer","HighHint":"Further"}
     	]
 }
